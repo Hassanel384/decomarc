@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
     <html lang="fr" className="scroll-smooth">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" sizes="any" />
       </head>
       <body className="bg-[#fcfbfa] text-stone-800 antialiased selection:bg-brand-primary selection:text-white">
         <CartProvider>
