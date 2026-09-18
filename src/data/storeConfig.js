@@ -3,10 +3,10 @@ export const storeConfig = {
   brandName: "Decowin Gifts",
   tagline: "L'Art d'Offrir, le Triomphe du Cœur",
   subTagline: "Fleurs Fraîches & Chocolats de Luxe — L'Émotion Livrée en 24h au Maroc",
-  phone: "(+212) 674-971315",
-  whatsappNumber: "212674971315",
+  phone: "(+212) 648-811362",
+  whatsappNumber: "212648811362",
   email: "contact@decowin.ma",
-  address: "Numéro 51, Marché Rivièra, Bd Ghandi, Casablanca 20000, Maroc",
+  address: "Ain Sebaa, Casablanca 20000, Maroc",
   openingHours: "7j/7 de 08:30 à 21:30",
   currency: "Dhs",
   
