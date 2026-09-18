@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { storeConfig } from "@/data/storeConfig";
 import { ShoppingBag, Star, MessageCircle, Eye } from "lucide-react";
@@ -13,6 +14,7 @@ export default function ProductCard({ product }) {
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
+    e.preventDefault();
     setIsAdding(true);
     addToCart(product, 1);
     setTimeout(() => setIsAdding(false), 800);
@@ -20,18 +22,25 @@ export default function ProductCard({ product }) {
 
   const handleQuickWhatsApp = (e) => {
     e.stopPropagation();
+    e.preventDefault();
     const link = generateDirectProductWhatsAppLink(product, 1);
     window.open(link, "_blank");
   };
 
+  const handleQuickView = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setSelectedProductForModal(product);
+  };
+
+  const productUrl = `/produit/${product.slug || product.id}`;
+
   return (
-    <div
-      onClick={() => setSelectedProductForModal(product)}
-      className="group bg-white rounded-2xl border border-stone-100 overflow-hidden shadow-subtle hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
-    >
+    <div className="group bg-white rounded-2xl border border-stone-100 overflow-hidden shadow-subtle hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
       {/* 1. ZONE IMAGE & BADGES */}
-      <div
-        className="relative w-full aspect-square overflow-hidden bg-stone-100"
+      <Link
+        href={productUrl}
+        className="relative w-full aspect-square overflow-hidden bg-stone-100 block"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -42,7 +51,9 @@ export default function ProductCard({ product }) {
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           className={`object-cover transition-opacity duration-500 ${
-            isHovered && product.secondaryImage ? "opacity-0" : "opacity-100 group-hover:scale-105 transition-transform duration-500"
+            isHovered && product.secondaryImage
+              ? "opacity-0"
+              : "opacity-100 group-hover:scale-105 transition-transform duration-500"
           }`}
         />
 
@@ -59,7 +70,7 @@ export default function ProductCard({ product }) {
           />
         )}
 
-        {/* Badge Flottant (Top Vente / VIP / etc.) */}
+        {/* Badge Flottant */}
         {product.badge && (
           <div className="absolute top-2.5 left-2.5 z-10">
             <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-stone-900/90 backdrop-blur-md text-amber-300 px-2.5 py-1 rounded-full shadow-sm">
@@ -68,14 +79,17 @@ export default function ProductCard({ product }) {
           </div>
         )}
 
-        {/* Bouton Aperçu Rapide (Desktop Hover) */}
-        <div className="hidden sm:flex absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 items-center justify-center transition-opacity">
+        {/* Bouton Aperçu Rapide */}
+        <button
+          onClick={handleQuickView}
+          className="hidden sm:flex absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 items-center justify-center transition-opacity z-10"
+        >
           <span className="bg-white/95 text-stone-900 text-xs font-bold px-3 py-1.5 rounded-full shadow flex items-center space-x-1 transform translate-y-2 group-hover:translate-y-0 transition-transform">
             <Eye className="w-3.5 h-3.5" />
             <span>Aperçu rapide</span>
           </span>
-        </div>
-      </div>
+        </button>
+      </Link>
 
       {/* 2. ZONE INFORMATIONS */}
       <div className="p-3 sm:p-4 flex-1 flex flex-col justify-between">
@@ -90,9 +104,11 @@ export default function ProductCard({ product }) {
           </div>
 
           {/* Titre du produit */}
-          <h3 className="text-xs sm:text-sm font-medium text-stone-900 group-hover:text-brand-primary transition-colors line-clamp-2 leading-snug">
-            {product.name}
-          </h3>
+          <Link href={productUrl}>
+            <h3 className="text-xs sm:text-sm font-medium text-stone-900 group-hover:text-brand-primary transition-colors line-clamp-2 leading-snug">
+              {product.name}
+            </h3>
+          </Link>
         </div>
 
         {/* PRIX ET ACTIONS */}
@@ -114,7 +130,7 @@ export default function ProductCard({ product }) {
             </span>
           </div>
 
-          {/* BOUTONS D'ACHAT (MOBILE & DESKTOP) */}
+          {/* BOUTONS D'ACHAT */}
           <div className="grid grid-cols-2 gap-1.5">
             {/* 1. Bouton Panier */}
             <button

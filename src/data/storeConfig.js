@@ -1,9 +1,11 @@
 export const storeConfig = {
-  name: "Deco & Marc Gifts",
-  tagline: "L'élégance au plus que parfait — Fleuriste & Cadeaux de Prestige au Maroc",
+  name: "Decowin",
+  brandName: "Decowin Gifts",
+  tagline: "L'Art d'Offrir, le Triomphe du Cœur",
+  subTagline: "Fleurs Fraîches & Chocolats de Luxe — L'Émotion Livrée en 24h au Maroc",
   phone: "(+212) 674-971315",
   whatsappNumber: "212674971315",
-  email: "contact@decomarcgifts.com",
+  email: "contact@decowin.ma",
   address: "Numéro 51, Marché Rivièra, Bd Ghandi, Casablanca 20000, Maroc",
   openingHours: "7j/7 de 08:30 à 21:30",
   currency: "Dhs",
@@ -19,27 +21,45 @@ export const storeConfig = {
     { name: "Autre ville du Maroc", deliveryFee: 70, estimate: "Livraison sous 24h à 48h", isExpress: false },
   ],
 
-  // Avantages rassurants
+  // Mots-clés SEO stratégiques
+  seoKeywords: [
+    "Decowin",
+    "chocolat",
+    "gift",
+    "fleurs",
+    "cadeau fiancée",
+    "cadeau anniversaire",
+    "livraison fleurs casablanca",
+    "fleuriste rabat",
+    "fleurs marrakech",
+    "boite fleurs chocolat",
+    "pack fiançailles maroc",
+    "cadeau pour femme",
+    "cadeau pour homme",
+    "saint-valentin maroc",
+  ],
+
+  // Avantages réassurance
   features: [
     {
       icon: "Truck",
       title: "Livraison Express 24h",
-      desc: "À Casablanca, Rabat, Marrakech et partout au Maroc",
+      desc: "À Casablanca sous 2h-4h, et sous 24h à Rabat, Marrakech, Tanger et tout le Maroc.",
     },
     {
       icon: "Flower2",
       title: "Fleurs Fraîches Garanties",
-      desc: "Sélectionnées chaque matin par nos artisans fleuristes",
+      desc: "Sélectionnées chaque matin par nos artisans fleuristes pour une tenue de plus de 7 jours.",
     },
     {
       icon: "Sparkles",
-      title: "Chocolats Fins & Cadeaux",
-      desc: "Chocolat Belge d'excellence & marques renommées",
+      title: "Chocolats Fins & Coffrets",
+      desc: "Chocolats belges artisanaux pur beurre de cacao & marques prestigieuses.",
     },
     {
       icon: "ShieldCheck",
-      title: "Paiement Simple & Sécurisé",
-      desc: "Paiement à la livraison (Cash) ou Virement bancaire",
+      title: "Paiement Simple & Sûr",
+      desc: "Paiement à la livraison (Cash) ou virement bancaire après validation.",
     },
   ],
 };

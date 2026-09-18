@@ -2,11 +2,13 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { storeConfig } from "@/data/storeConfig";
 import { useCart } from "@/context/CartContext";
 import { Phone, Mail, ShoppingBag, Search, Menu, X, Clock, Sparkles } from "lucide-react";
 
 export default function Header({ searchQuery, setSearchQuery, onSelectCategory, selectedCategory }) {
+  const pathname = usePathname();
   const { totalItemsCount, setIsCartOpen } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpenMobile, setIsSearchOpenMobile] = useState(false);
@@ -36,7 +38,7 @@ export default function Header({ searchQuery, setSearchQuery, onSelectCategory, 
           <div className="flex items-center space-x-4">
             <span className="flex items-center space-x-1 text-amber-400">
               <Clock className="w-3.5 h-3.5" />
-              <span>Livraison 7j/7 sous 2h à Casablanca & 24h au Maroc</span>
+              <span>Livraison 7j/7 sous 2h à Casablanca &amp; 24h au Maroc</span>
             </span>
             <span className="text-stone-500">•</span>
             <span className="text-stone-300 font-medium">Paiement à la livraison (Cash)</span>
@@ -44,7 +46,7 @@ export default function Header({ searchQuery, setSearchQuery, onSelectCategory, 
         </div>
       </div>
 
-      {/* 2. MAIN HEADER (Logo, Search, Actions) */}
+      {/* 2. MAIN HEADER (Logo Decowin, Search, Actions) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Menu Burger Mobile */}
@@ -67,15 +69,15 @@ export default function Header({ searchQuery, setSearchQuery, onSelectCategory, 
             </button>
           </div>
 
-          {/* LOGO */}
+          {/* LOGO DECOWIN AVEC SLOGAN ACCROCHEUR */}
           <div className="flex-1 md:flex-initial text-center md:text-left">
             <Link href="/" className="inline-block group">
               <div className="flex flex-col items-center md:items-start">
                 <span className="text-2xl md:text-3xl font-serif font-black tracking-tight text-stone-900 group-hover:text-brand-primary transition-colors">
-                  DECO <span className="text-brand-primary font-normal">&amp;</span> MARC
+                  DECO<span className="text-brand-primary">WIN</span>
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.25em] text-stone-500 font-medium -mt-1">
-                  Gifts &bull; Casablanca
+                <span className="text-[10px] uppercase tracking-[0.2em] text-brand-primary font-bold -mt-1 hidden sm:inline-block">
+                  L'Art d'Offrir, le Triomphe du Cœur
                 </span>
               </div>
             </Link>
@@ -88,7 +90,7 @@ export default function Header({ searchQuery, setSearchQuery, onSelectCategory, 
                 type="text"
                 value={searchQuery || ""}
                 onChange={(e) => setSearchQuery && setSearchQuery(e.target.value)}
-                placeholder="Rechercher des fleurs, coffrets, chocolats..."
+                placeholder="Rechercher : fleurs, chocolat, cadeau fiancée, anniversaire..."
                 className="w-full pl-10 pr-4 py-2.5 rounded-full border border-stone-200 bg-stone-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary text-sm transition-all"
               />
               <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-3.5 pointer-events-none" />
@@ -107,7 +109,7 @@ export default function Header({ searchQuery, setSearchQuery, onSelectCategory, 
           <div className="flex items-center space-x-2 md:space-x-4">
             {/* Bouton Commande WhatsApp Desktop */}
             <a
-              href={`https://wa.me/${storeConfig.whatsappNumber}?text=Bonjour%20Deco%20%26%20Marc%20Gifts%2C%20je%20souhaite%20commander`}
+              href={`https://wa.me/${storeConfig.whatsappNumber}?text=Bonjour%20Decowin%2C%20je%20souhaite%20commander%20une%20cr%C3%A9ation`}
               target="_blank"
               rel="noopener noreferrer"
               className="hidden lg:flex items-center space-x-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-3.5 py-2 rounded-full text-xs font-semibold border border-emerald-200 transition-colors"
@@ -116,7 +118,7 @@ export default function Header({ searchQuery, setSearchQuery, onSelectCategory, 
               <span>WhatsApp Direct</span>
             </a>
 
-            {/* Bouton Panier */}
+            {/* Bouton Panier (ouvre tiroir et lien vers /panier) */}
             <button
               onClick={() => setIsCartOpen(true)}
               className="relative p-2 md:px-4 md:py-2.5 rounded-full bg-stone-100 hover:bg-brand-primary/10 text-stone-800 hover:text-brand-primary transition-all flex items-center space-x-2"
@@ -145,7 +147,7 @@ export default function Header({ searchQuery, setSearchQuery, onSelectCategory, 
                 type="text"
                 value={searchQuery || ""}
                 onChange={(e) => setSearchQuery && setSearchQuery(e.target.value)}
-                placeholder="Rechercher un coffret, bouquet, chocolat..."
+                placeholder="Rechercher : fleurs, chocolat, pack mariage..."
                 className="w-full pl-10 pr-10 py-2.5 rounded-full border border-stone-200 bg-stone-50 focus:bg-white text-sm focus:outline-none focus:border-brand-primary"
                 autoFocus
               />
@@ -170,73 +172,72 @@ export default function Header({ searchQuery, setSearchQuery, onSelectCategory, 
             <Link
               href="/"
               className={`hover:text-brand-primary transition-colors ${
-                !selectedCategory || selectedCategory === "all" ? "text-brand-primary font-bold" : ""
+                pathname === "/" ? "text-brand-primary font-bold" : ""
               }`}
-              onClick={() => onSelectCategory && onSelectCategory("all")}
             >
               Accueil
             </Link>
-            <button
-              onClick={() => onSelectCategory && onSelectCategory("boites-fleurs")}
+            <Link
+              href="/catalogue"
               className={`hover:text-brand-primary transition-colors ${
-                selectedCategory === "boites-fleurs" ? "text-brand-primary font-bold" : ""
+                pathname === "/catalogue" ? "text-brand-primary font-bold" : ""
               }`}
             >
-              Boîtes Fleurs &amp; Chocolats
-            </button>
-            <button
-              onClick={() => onSelectCategory && onSelectCategory("bouquets")}
+              Catalogue
+            </Link>
+            <Link
+              href="/categories/boites-fleurs"
               className={`hover:text-brand-primary transition-colors ${
-                selectedCategory === "bouquets" ? "text-brand-primary font-bold" : ""
+                pathname === "/categories/boites-fleurs" ? "text-brand-primary font-bold" : ""
+              }`}
+            >
+              Boîtes Fleurs &amp; Chocolat
+            </Link>
+            <Link
+              href="/categories/mariage-fiancailles"
+              className={`hover:text-brand-primary transition-colors ${
+                pathname === "/categories/mariage-fiancailles" ? "text-brand-primary font-bold" : ""
+              }`}
+            >
+              Fiançailles &amp; Mariage
+            </Link>
+            <Link
+              href="/categories/bouquets"
+              className={`hover:text-brand-primary transition-colors ${
+                pathname === "/categories/bouquets" ? "text-brand-primary font-bold" : ""
               }`}
             >
               Bouquets Frais
-            </button>
-            <button
-              onClick={() => onSelectCategory && onSelectCategory("mariage-fiancailles")}
+            </Link>
+            <Link
+              href="/a-propos"
               className={`hover:text-brand-primary transition-colors ${
-                selectedCategory === "mariage-fiancailles" ? "text-brand-primary font-bold" : ""
+                pathname === "/a-propos" ? "text-brand-primary font-bold" : ""
               }`}
             >
-              Packs Fiançailles &amp; Mariage
-            </button>
-            <button
-              onClick={() => onSelectCategory && onSelectCategory("pour-elle")}
+              À Propos
+            </Link>
+            <Link
+              href="/contact"
               className={`hover:text-brand-primary transition-colors ${
-                selectedCategory === "pour-elle" ? "text-brand-primary font-bold" : ""
+                pathname === "/contact" ? "text-brand-primary font-bold" : ""
               }`}
             >
-              Pour Elle
-            </button>
-            <button
-              onClick={() => onSelectCategory && onSelectCategory("pour-lui")}
-              className={`hover:text-brand-primary transition-colors ${
-                selectedCategory === "pour-lui" ? "text-brand-primary font-bold" : ""
-              }`}
-            >
-              Pour Lui
-            </button>
-            <button
-              onClick={() => onSelectCategory && onSelectCategory("decoration-voiture")}
-              className={`hover:text-brand-primary transition-colors ${
-                selectedCategory === "decoration-voiture" ? "text-brand-primary font-bold" : ""
-              }`}
-            >
-              Décoration Voiture
-            </button>
+              Contact
+            </Link>
           </div>
 
           <Link
-            href="/catalogue"
+            href="/panier"
             className="text-brand-primary hover:text-brand-primary-hover font-bold flex items-center space-x-1"
           >
-            <span>Catalogue Complet</span>
+            <span>Voir le Panier</span>
             <span>&rarr;</span>
           </Link>
         </div>
       </nav>
 
-      {/* 4. MENU LATÉRAL DÉROULANT MOBILE (Tiroir Hamburger) */}
+      {/* 4. MENU LATÉRAL MOBILE */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 md:hidden flex">
           <div
@@ -247,10 +248,12 @@ export default function Header({ searchQuery, setSearchQuery, onSelectCategory, 
             <div>
               <div className="p-4 border-b border-stone-100 flex items-center justify-between bg-stone-50">
                 <div>
-                  <span className="font-serif font-black text-xl text-stone-900">
-                    DECO <span className="text-brand-primary">&amp;</span> MARC
+                  <span className="font-serif font-black text-2xl text-stone-900">
+                    DECO<span className="text-brand-primary">WIN</span>
                   </span>
-                  <p className="text-[11px] text-stone-500">Boutique de fleurs &amp; cadeaux</p>
+                  <p className="text-[10px] text-brand-primary font-bold">
+                    L'Art d'Offrir, le Triomphe du Cœur
+                  </p>
                 </div>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -262,91 +265,74 @@ export default function Header({ searchQuery, setSearchQuery, onSelectCategory, 
 
               <div className="p-4 space-y-1">
                 <p className="text-[11px] font-bold uppercase tracking-wider text-stone-400 px-3 pb-2">
-                  Nos Collections
+                  Pages Principales
                 </p>
-                <button
-                  onClick={() => {
-                    onSelectCategory && onSelectCategory("all");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary"
+                <Link
+                  href="/"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary"
                 >
-                  🌸 Tous nos produits
-                </button>
-                <button
-                  onClick={() => {
-                    onSelectCategory && onSelectCategory("boites-fleurs");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary flex items-center justify-between"
+                  🌸 Accueil
+                </Link>
+                <Link
+                  href="/catalogue"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary"
+                >
+                  🛍️ Tout le Catalogue
+                </Link>
+                <Link
+                  href="/categories/boites-fleurs"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary flex items-center justify-between"
                 >
                   <span>🎁 Boîtes Fleurs &amp; Chocolats</span>
                   <span className="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">
                     Top Vente
                   </span>
-                </button>
-                <button
-                  onClick={() => {
-                    onSelectCategory && onSelectCategory("bouquets");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary"
+                </Link>
+                <Link
+                  href="/categories/mariage-fiancailles"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary flex items-center justify-between"
                 >
-                  💐 Bouquets de Fleurs Fraîches
-                </button>
-                <button
-                  onClick={() => {
-                    onSelectCategory && onSelectCategory("mariage-fiancailles");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary flex items-center justify-between"
-                >
-                  <span>💍 Packs Fiançailles &amp; Mariage</span>
+                  <span>💍 Fiançailles &amp; Mariage</span>
                   <span className="text-[10px] bg-rose-100 text-brand-primary px-2 py-0.5 rounded-full font-bold">
                     VIP
                   </span>
-                </button>
-                <button
-                  onClick={() => {
-                    onSelectCategory && onSelectCategory("pour-elle");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary"
+                </Link>
+                <Link
+                  href="/categories/bouquets"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary"
                 >
-                  🎀 Cadeaux Pour Elle
-                </button>
-                <button
-                  onClick={() => {
-                    onSelectCategory && onSelectCategory("pour-lui");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary"
+                  💐 Bouquets de Fleurs Fraîches
+                </Link>
+                <Link
+                  href="/panier"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary"
                 >
-                  👔 Cadeaux Pour Lui
-                </button>
-                <button
-                  onClick={() => {
-                    onSelectCategory && onSelectCategory("decoration-voiture");
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary"
+                  🛒 Mon Panier ({totalItemsCount})
+                </Link>
+                <Link
+                  href="/a-propos"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary"
                 >
-                  🚗 Décoration Voiture de Mariage
-                </button>
-
-                <div className="pt-4 border-t border-stone-100">
-                  <Link
-                    href="/catalogue"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block w-full text-center py-2.5 rounded-xl bg-stone-900 text-white text-xs font-bold uppercase tracking-wider"
-                  >
-                    Voir tout le catalogue
-                  </Link>
-                </div>
+                  ✨ À Propos de Decowin
+                </Link>
+                <Link
+                  href="/contact"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full px-3 py-2.5 rounded-lg text-sm font-semibold text-stone-800 hover:bg-brand-primary/10 hover:text-brand-primary"
+                >
+                  📞 Contact &amp; Horaires
+                </Link>
               </div>
             </div>
 
-            {/* Bas du tiroir mobile : contact direct */}
+            {/* Bas du tiroir */}
             <div className="p-4 bg-stone-50 border-t border-stone-100 space-y-3">
               <a
                 href={`tel:${storeConfig.phone}`}
@@ -362,10 +348,10 @@ export default function Header({ searchQuery, setSearchQuery, onSelectCategory, 
               </a>
 
               <a
-                href={`https://wa.me/${storeConfig.whatsappNumber}`}
+                href={`https://wa.me/${storeConfig.whatsappNumber}?text=Bonjour%20Decowin`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center space-x-2 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-md transition-colors"
+                className="w-full flex items-center justify-center space-x-2 py-2.5 bg-[#25D366] hover:bg-[#1ebd56] text-white rounded-xl text-xs font-bold shadow-md transition-colors"
               >
                 <span>Commander sur WhatsApp</span>
               </a>
