@@ -47,7 +47,7 @@ export default function AboutPage() {
               <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white shadow-lg text-xs text-stone-800">
                 <p className="font-bold flex items-center space-x-1">
                   <MapPin className="w-3.5 h-3.5 text-brand-primary" />
-                  <span>Atelier Marché Rivièra, Bd Ghandi, Casablanca</span>
+                  <span>Ain Sebaa, Casablanca</span>
                 </p>
                 <p className="text-[11px] text-stone-500 mt-0.5">
                   Créations florales artisanales fraîches 7j/7

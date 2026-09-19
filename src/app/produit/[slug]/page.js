@@ -416,7 +416,7 @@ export default function ProductDetailPage() {
             {activeTab === "livraison" && (
               <div className="space-y-3">
                 <p>
-                  <strong>Casablanca :</strong> Livraison express en 2h à 4h ou créneau au choix dans tous les quartiers (Anfa, Ghandi, Maârif, Bourgogne, Californie, Sidi Maarouf...).
+                  <strong>Casablanca :</strong> Livraison express en 2h à 4h ou créneau au choix dans tous les quartiers (Ain Sebaa, Anfa, Maârif, Bourgogne, Californie, Sidi Maarouf...).
                 </p>
                 <p>
                   <strong>Rabat, Marrakech, Tanger, Fès, Meknès, Agadir :</strong> Expédition sous 24h garantie dans un emballage thermique protecteur pour préserver l'éclat des fleurs et le chocolat.

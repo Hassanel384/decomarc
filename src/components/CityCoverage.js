@@ -8,7 +8,7 @@ export default function CityCoverage() {
     {
       name: "Casablanca",
       delay: "Sous 2h à 4h ou jour même",
-      desc: "Anfa, Ghandi, Maarif, Bourgogne, Californie, Sidi Maarouf, Ain Diab...",
+      desc: "Ain Sebaa, Anfa, Maarif, Bourgogne, Californie, Sidi Maarouf, Ain Diab...",
       isFeatured: true,
     },
     {
